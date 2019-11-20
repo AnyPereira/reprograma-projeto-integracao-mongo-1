@@ -7,27 +7,42 @@ exports.post = (req,res) =>{
 
     cliente.save(function(err){
         if (err) res.status(500).send(err);
-        res.status(201).send(cliente);
+
+        res.status(201).send({
+          status: true,
+          mensagem: "Cliente incluido com sucesso!"
+        });
     })
 }
 
 exports.get = (req,res) => {
     clientes.find(function(err, cliente){
         if(err) res.status(500).send(err);
+
         res.status(200).send(cliente);
     })
 }
 
-exports.getById = (req, res) => {
-    const clienteId = req.params.id
-  
-    clientes.findById(clienteId, function(err, clientes){
-      if (err) return res.status(500).send(err);
-  
-      if(!clientes){
-        return res.status(200).send({message: `Infelizmemte não localizamos o cliente de id: ${clienteId}`});
-  
-      }
-      res.status(200).send(clienteId);
-    })
-  }
+  exports.getCompradores = (req,res) =>{
+    clientes.find({comprou:true},function(err, cliente){
+      if(err) res.status(500).send(err);
+      const clientesRetorno = cliente.map(cliente => {
+        return{
+          nome:cliente.nome,
+          email:cliente.email
+        }
+      })
+
+      res.status(200).send(clientesRetorno);
+  })
+}
+
+exports.getCpf = (req,res) =>{
+  const cpf = req.params.cpf;
+  clientes.find({cpf},function(err, cliente){
+    if(err) res.status(500).send(err);
+
+    res.status(200).send(cliente);
+    
+  })
+}

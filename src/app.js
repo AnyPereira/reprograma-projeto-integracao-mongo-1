@@ -5,7 +5,7 @@ const app = express()
 
 //String de conexão com o mongodb
 //porta padrão do mongo: 27017
-//banco de dados utilizado: reprograma
+//banco de dados utilizado: clientes
 
 mongoose.connect("mongodb://localhost:27017/clientes",  { useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -21,7 +21,6 @@ db.once("open", function(){
 })
 
 //rotas
-const index = require("./routes/index")
 const clientes = require("./routes/clientesRoute")
 
 //app.use(express)
@@ -35,7 +34,6 @@ app.use(function(req,res,next){
 
 app.use(bodyParser.json());
 
-app.use("/", index)
 app.use("/clientes", clientes)
 
 module.exports = app
