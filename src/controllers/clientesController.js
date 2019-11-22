@@ -57,3 +57,22 @@ exports.atualizaCpf = (req,res) => {
       res.status(200).send({message:"Atualizado"})
     })
 }
+
+exports.deletarCliente = (req,res) => {
+  const idCliente = req.params.id;
+
+  clientes.findById(idCliente, function(err,cliente){
+    if (err) return res.status(500).send(err);
+
+    if(!cliente){
+      return res.status(200).send({message: `Infelizmente não localizamos o id ${idCliente}`});
+    }
+
+    cliente.remove(function(err){
+      if(!err){
+        res.status(204).send({message:'Cliente removido com sucesso!'});
+      }
+    })
+
+  })
+}
