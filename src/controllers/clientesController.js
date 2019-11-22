@@ -68,9 +68,9 @@ exports.deletarCliente = (req,res) => {
       return res.status(200).send({message: `Infelizmente não localizamos o id ${idCliente}`});
     }
 
-    cliente.remove(function(err){
+    clientes.remove(function(err){
       if(!err){
-        res.status(204).send({message:'Cliente removido com sucesso!'});
+        res.status(200).send({message:'Cliente removido com sucesso!'});
       }
     })
 
