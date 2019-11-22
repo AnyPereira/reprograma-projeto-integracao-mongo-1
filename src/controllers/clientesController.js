@@ -46,3 +46,14 @@ exports.getCpf = (req,res) =>{
     
   })
 }
+
+exports.atualizaCpf = (req,res) => {
+  clientes.update(
+    {cpf:req.params.cpf},
+    {$set:req.body},
+    {upsert:true},
+    function(err){
+      if(err) return res.status(500).send({message:err})
+      res.status(200).send({message:"Atualizado"})
+    })
+}
