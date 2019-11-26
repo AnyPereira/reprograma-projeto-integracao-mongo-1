@@ -9,6 +9,10 @@ const app = express()
 
 mongoose.connect("mongodb://localhost:27017/clientes",  { useNewUrlParser: true, useUnifiedTopology: true});
 
+//Realizar conexão com o mongodb na nuvem
+
+//mongoose.connect("mongodb+srv://admin:admin123@cluster0-sr5b7.mongodb.net/clientes",  { useNewUrlParser: true, useUnifiedTopology: true});
+
 //representação da conexão com o banco de dados 
 let db = mongoose.connection;
 
@@ -30,6 +34,8 @@ app.use(function(req,res,next){
     next()
 })
 
+
+app.use(express.static("public"));
 //cria dentro do mongo
 
 app.use(bodyParser.json());
